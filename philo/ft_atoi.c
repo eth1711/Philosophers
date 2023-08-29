@@ -1,35 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 17:02:09 by etlim             #+#    #+#             */
-/*   Updated: 2022/10/20 10:54:30 by etlim            ###   ########.fr       */
+/*   Created: 2022/10/11 15:36:15 by etlim             #+#    #+#             */
+/*   Updated: 2023/08/29 18:05:01 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philosophers.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+long	ft_atoi(char *str)
 {
-	size_t	i;
+	int	i;
+	int	res;
+	int	sign;
 
 	i = 0;
-	while (i < len)
+	res = 0;
+	sign = 1;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		((char *)b)[i] = c;
+		if (str[i] == '-')
+			sign = sign * -1;
 		i++;
 	}
-	return (b);
+	while (str[i] != '\0' && str[i] > 47 && str[i] < 58)
+	{
+		res = (res * 10 + (str[i] - '0'));
+		i++;
+	}
+	return (res * sign);
 }
 
 /* #include <stdio.h>
+#include <stdlib.h>
 
 int	main(void)
 {
-    char ftstr[] = "hellooooooo";
-
-    printf("%s\n", ft_memset(ftstr, '-', 5));
+	char str[] = "22";
+	printf("%d\n", atoi(str));
+	printf("%d\n", ft_atoi(str));
 } */
