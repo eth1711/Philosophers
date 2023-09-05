@@ -6,15 +6,27 @@
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 12:00:21 by etlim             #+#    #+#             */
-/*   Updated: 2023/08/30 14:44:44 by etlim            ###   ########.fr       */
+/*   Updated: 2023/09/05 18:54:59 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	check_arg(t_data *data)
+int	check_arg(char **str)
 {
-	if();
+	int	i;
+	int	j;
+
+	i = 0;
+	if (str[++i] && str[i][0])
+	{
+		j = -1;
+		while (str[i][j++])
+		{
+			if (str[i][j] >= '0' && str[i][j] <= '9')
+				return (0);
+		}
+	}
 }
 
 int	main(int c, char **str)

@@ -6,7 +6,7 @@
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 12:00:34 by etlim             #+#    #+#             */
-/*   Updated: 2023/08/29 18:04:44 by etlim            ###   ########.fr       */
+/*   Updated: 2023/09/05 18:19:14 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdbool.h>
-# include "libft/libft.h"
 
 typedef struct s_philo
 {
