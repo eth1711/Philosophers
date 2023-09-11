@@ -1,16 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:36:15 by etlim             #+#    #+#             */
-/*   Updated: 2023/08/29 18:05:01 by etlim            ###   ########.fr       */
+/*   Updated: 2023/09/11 07:46:01 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+u_int64_t	get_time_now(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * (u_int64_t)1000 + tv.tv_sec / 1000);
+}
+
+void	my_usleep(u_int64_t time)
+{
+	u_int64_t	start_time;
+
+	start_time = get_time_now();
+	while (get_time_now - start_time < time)
+		usleep(100);
+}
 
 long	ft_atoi(char *str)
 {
@@ -36,13 +53,3 @@ long	ft_atoi(char *str)
 	}
 	return (res * sign);
 }
-
-/* #include <stdio.h>
-#include <stdlib.h>
-
-int	main(void)
-{
-	char str[] = "22";
-	printf("%d\n", atoi(str));
-	printf("%d\n", ft_atoi(str));
-} */
