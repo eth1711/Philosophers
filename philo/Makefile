@@ -1,17 +1,25 @@
-NAME	= philosophers
-DIR		= philo/
-SRCS	=
-SRCS_B	=
-OBJS	= $(SRCS:.c=.o)
-OBJS_B	= $(SRCS_B:.c=.o)
-INCS	= -Iincludes
-CC		= gcc
-C_FLAGS	= -Wall -Werror -Wextra -fsanitize=address -g3
-RM		= rm -rf
+NAME		= philosophers
+DIR			= src/
+SRCS		= $(wildcard $(addprefix $(DIR), *.c))
+OBJS		= $(SRCS:.c=.o)
+CC			= gcc
+CFLAGS		= -Wall -Werror -Wextra -Iincludes -fsanitize=thread -g3
+RM			= rm -rf
 
-%.o: %c 
-	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+all : $(NAME)
 
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(INCS) -o $@ $(OBJS)
 
+%.o: %c 
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+
+clean : 
+	@$(RM) $(DIR)*.o
+
+fclean : clean
+	@$(RM) $(NAME)
+
+re :fclean all
+
+.PHONY: all fclean clean re 

@@ -6,7 +6,7 @@
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:36:15 by etlim             #+#    #+#             */
-/*   Updated: 2023/09/11 07:46:01 by etlim            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:22:14 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	my_usleep(u_int64_t time)
 	u_int64_t	start_time;
 
 	start_time = get_time_now();
-	while (get_time_now - start_time < time)
+	while (get_time_now() - start_time < time)
 		usleep(100);
 }
 
@@ -52,4 +52,34 @@ long	ft_atoi(char *str)
 		i++;
 	}
 	return (res * sign);
+}
+
+int	check_arg(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (str[++i] && str[i][0])
+	{
+		j = -1;
+		while (str[i][j++])
+		{
+			if (str[i][j] >= '0' && str[i][j] <= '9')
+				return (0);
+		}
+	}
+	return (1);
+}
+
+void	print_message(t_philo *philo, char *message)
+{
+	if (philo->data->all_alive && philo->data->all_hungry)
+	{
+		pthread_mutex_lock(&philo->data->write);
+		printf("%llu %d %s", get_time_now() - philo->data->time_start,
+			philo->index, message);
+		if (*message != 'd')
+			pthread_mutex_unlock(&philo->data->write);
+	}
 }

@@ -6,18 +6,19 @@
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:05:30 by etlim             #+#    #+#             */
-/*   Updated: 2023/09/11 18:41:37 by etlim            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:36:10 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
 void	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	print_messsage(philo, FORK);
+	print_message(philo, FORK);
 	if (philo->data->philo_num > 1)
 		pthread_mutex_lock(philo->r_fork);
-	print_messsage(philo, FORK);
+	print_message(philo, FORK);
 }
 
 void	release_forks(t_philo *philo)
@@ -25,6 +26,7 @@ void	release_forks(t_philo *philo)
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 }
+
 int	malloc_data(t_data *data)
 {
 	int	i;
@@ -41,7 +43,7 @@ int	malloc_data(t_data *data)
 	return (1);
 }
 
-int	init_philo(t_data *data, int c, char **str)
+void	init_philos(t_data *data)
 {
 	int	i;
 
@@ -72,9 +74,11 @@ int	init_vars(t_data *data, int c, char **str)
 	data->time_eat = (u_int64_t) ft_atoi(str[3]);
 	data->time_sleep = (u_int64_t) ft_atoi(str[4]);
 	data->meal_num = 0;
+	data->all_initiated = 0;
+	data->all_alive = 1;
+	data->all_hungry = 1;
 	if (c == 6)
 		data->meal_num = (u_int64_t) ft_atoi(str[5]);
-	// pthread_mutex_init(&data->lock, NULL);
 	pthread_mutex_init(&data->write, NULL);
 	if (!malloc_data(data))
 		return (0);
